@@ -1,3 +1,34 @@
+# unidbg p7zip benchmark tests
+This commit makes some test based on unidbg. By using p7zip 16.02 to run benchmark, and compare the result to other arm to x86 binary translator, we can have a basic understanding of the performance of them.
+
+If you have other benchmark tools can be run in unidbg, you can open an issue here.
+
+### Some changes:
+- Build the latest dynarmic.dll for windows. 
+
+- Build 7zr 7zr_static lib7zr.so from [https://github.com/han1202012/7-Zip](https://github.com/han1202012/7-Zip) (Added `setvbuf(stdout, 0, _IOLBF, 0);` and `setvbuf(stderr, 0, _IONBF, 0);` to cpp/lib7zr/CPP/7zip/UI/Console/MainAr.cpp to print result in unidbg).
+
+- unidbg-android/src/test/java/com/test/p7zip/MainActivity.java is for running lib7zr benchmark.
+
+- patch `ARM32SyscallHandler.java` and `ARM64SyscallHandler.java` to support running 7zr.
+
+### Some issues/conclusions:
+- unidbg is single thread, so all benchmark is using `-mmt1` argument when running 7zr.
+
+- unicorn2 is based on qemu5, so scores form other environment use qemu5 to compare.
+
+- In unidbg, `7zr b -mm=*` will freeze. So I pick some Codecs from `7zr i` list. Including `LZMA:x5:mt1`, `Delta:4`, `BCJ`, `CRC32:1`, `CRC32:4`, `CRC32:8`, `CRC64`, `SHA256`.
+
+- Each benchmark record contains scores of 7zr b rating, and the running time. 
+
+- `unidbg-scores-unicorn2-dynarmic.txt` contains the test results from unidbg, and some estimates. It has comparison of unicorn2, dynarmic.
+
+- `avd-scores-single-thread.txt` contains the test results from AVD. It has comparsion of native, ndk_translation, houdini, qemu10, qemu10-a72, qemu5. Only arm64 target is tested. Newer qemu has bad performance when emulating arm64, so an extra test using `-cpu cortex-a72` is included.
+
+- `mumu-termux-scores-single-thread.txt` contains the test results from mumu emulator's termux environment. To support running hqemu (based on very old qemu), most of the scores is from 7zr_static. It has comparsion of native, hqemu, houdini, qemu5.
+
+### Belows are original README.
+
 # unidbg
 
 Allows you to emulate an Android native library, and an experimental iOS emulation.<br>

@@ -1,0 +1,190 @@
+7zr i (Supported Codecs in unidbg env)
+Codecs:
+   4ED  303011B BCJ2
+    ED  3030103 BCJ
+    ED  3030205 PPC
+    ED  3030401 IA64
+    ED  3030501 ARM
+    ED  3030701 ARMT
+    ED  3030805 SPARC
+    ED    20302 Swap2
+    ED    20304 Swap4
+    ED        0 Copy
+    ED        3 Delta
+    ED       21 LZMA2
+    ED    30101 LZMA
+Hashers:
+      4        1 CRC32
+     32        A SHA256
+      8        4 CRC64
+
+Some scores like 999/1999 means: Compressing Rating/Decompressing Rating
+default: command "7zr b"
+other codecs: command "7zr b -mm=codec", the command "7zr b -mm=*" has problem in unidbg
+p7zip 16.02
+unidbg may have slower memory interface
+
+-------------------------------------------------------------------------
+arm64 dynarmic_new version6.7.0 (vs unicorn2):
+ codecs           score                    time       score vs     time vs
+default           Avr=998/1037;Tot=1018;  135s        2.84x       41.03%
+LZMA:x5:mt1       Avr=1007/1068;Tot=1038; 133s        2.84x       36.34%
+Delta:4           Avr=808/863;Tot=836;    150s        2.99x       50.51%
+BCJ               Avr=922/932;Tot=927;    133s        3.89x       36.74%
+CRC32:1           Avg=153;                206s        0.97x       144.06%
+CRC32:4           Avg=360;                281s        1.17x       114.23%
+CRC32:8           Avg=413;                392s        1.20x       107.40%
+CRC64             Avg=344;                329s        1.13x       122.30%
+SHA256            Avg=63;                 177s        1.50x       99.44%
+
+
+-------------------------------------------------------------------------
+arm64 dynarmic_old 5<version<6.2.3? (vs unicorn2):
+ codecs            score                   time        score vs    time vs
+default           Avr=891/998; Tot=945;   147s        2.63x       44.7%
+LZMA:x5:mt1       Avr=952/1062; Tot=1007; 139s        2.75x       43.0%
+Delta:4           Avr=785/840; Tot=812;   157s        2.90x       52.9%
+BCJ               Avr=938/951; Tot=944;   134s        3.97x       37.0%
+CRC32:1           Avg=160;                200s        1.02x       139.9%
+CRC32:4           Avg=360;                291s        1.17x       118.3%
+CRC32:8           Avg=419;                412s        1.22x       112.9%
+CRC64             Avg=286;                395s        0.94x       146.8%
+SHA256            Avg=50;                 228s        1.19x       128.1%
+
+
+-------------------------------------------------------------------------
+arm64 unicorn2:
+ codecs            score                   time
+default           Avr=301/417; Tot=359;   329s
+LZMA:x5:mt1       Avr=307/426; Tot=366;   323s
+Delta:4           Avr=277/284; Tot=280;   297s
+BCJ               Avr=244/231; Tot=238;   362s
+CRC32:1           Avg=157;                143s
+CRC32:4           Avg=307;                246s
+CRC32:8           Avg=343;                365s
+CRC64             Avg=304;                269s
+SHA256            Avg=42;                 178s
+
+
+-------------------------------------------------------------------------
+arm32 dynarmic_new version6.7.0 (vs unicorn2):
+ codecs            score                   time        score vs    time vs
+default           Avr=908/1020; Tot=964;  143s        2.84x       46.58%
+LZMA:x5:mt1       Avr=900/1014; Tot=957;  145s        2.92x       45.74%
+Delta:4           Avr=836/909; Tot=873;   147s        2.07x       106.52%
+BCJ               Avr=680/683; Tot=682;   187s        1.61x       136.50%
+CRC32:1           Avg=197;                158s        1.20x       181.61%
+CRC32:4           Avg=527;                196s        1.55x       139.01%
+CRC32:8           Avg=574;                301s        1.55x       141.98%
+CRC64             Avg=283;                378s        1.52x       126.85%
+SHA256            Avg=42;                 264s        2.00x       113.30%
+
+
+-------------------------------------------------------------------------
+arm32 dynarmic_old 5<version<6.2.3? (vs unicorn2):
+ codecs            score                   time        score vs    time vs
+default           Avr=425/431; Tot=428;   302s        1.26x       98.37%
+LZMA:x5:mt1       Avr=446/445; Tot=446;   303s        1.36x       95.58%
+Delta:4           Avr=161/178; Tot=169;   714s        0.40x       517.39%
+BCJ               Avr=145/145; Tot=145;   889s        0.34x       648.91%
+CRC32:1           Avg=73;                 440s        0.46x       505.75%
+CRC32:4           !untest!
+CRC32:8           !untest!
+CRC64             !untest!
+SHA256            !untest!
+
+
+-------------------------------------------------------------------------
+arm32 unicorn2:
+ codecs            score                   time
+default           Avr=270/407; Tot=339;   307s
+LZMA:x5:mt1       Avr=261/394; Tot=328;   317s
+Delta:4           Avr=404/441; Tot=422;   138s
+BCJ               Avr=426/422; Tot=424;   137s
+CRC32:1           Avg=164;                87s
+CRC32:4           Avg=338;                141s
+CRC32:8           Avg=370;                212s
+CRC64             Avg=186;                298s
+SHA256            Avg=21;                 233s
+
+
+-------------------------------------------------------------------------
+Below is estimates, according to avd and mumu test result
+
+Possible Unicorn2 arm64 efficiency and time cost:
+ codecs                 scoreEffi         timeCost
+default                 27.5%             2.40x
+LZMA:x5:mt1             27.5%             2.40x
+Delta:4                 14.5%             4.10x
+BCJ                     20.0%             3.10x
+CRC32:1                 64.0%             1.05x
+CRC32:4                 63.0%             1.10x
+CRC32:8                 49.0%             1.35x
+CRC64                   62.5%             1.00x
+SHA256                  38.0%             1.80x
+
+
+Possible Native x86_64:
+ codecs                 score       time
+default                 1305        137s
+LZMA:x5:mt1             1331        135s
+Delta:4                 1931        72s
+BCJ                     1190        117s
+CRC32:1                 245         136s
+CRC32:4                 487         224s
+CRC32:8                 700         270s
+CRC64                   486         269s
+SHA256                  111         99s
+
+
+
+Possible dynarmic_new arm64 efficiency and time cost:
+ codecs                 scoreEffi         timeCost
+default                 77.98%            0.98x
+LZMA:x5:mt1             77.99%            0.99x
+Delta:4                 43.29%            2.07x
+BCJ                     77.90%            1.14x
+CRC32:1                 62.37%            1.51x
+CRC32:4                 73.88%            1.26x
+CRC32:8                 59.00%            1.45x
+CRC64                   70.72%            1.22x
+SHA256                  57.00%            1.79x
+
+-------------------
+Possible Unicorn2 arm32 efficiency and time cost:
+ codecs                 scoreEffi         timeCost
+default                 27.5%             2.35x
+LZMA:x5:mt1             27.5%             2.35x
+Delta:4                 23.5%             4.00x
+BCJ                     22.5%             4.15x
+CRC32:1                 65.0%             1.60x
+CRC32:4                 59.0%             1.70x
+CRC32:8                 52.5%             1.95x
+CRC64                   47.5%             2.10x
+SHA256                  32.0%             3.05x
+
+
+Possible Native x86:
+ codecs                 score       time
+default                 1233        131s
+LZMA:x5:mt1             1193        135s
+Delta:4                 1796        35s
+BCJ                     1884        33s
+CRC32:1                 252         54s
+CRC32:4                 573         83s
+CRC32:8                 705         109s
+CRC64                   392         142s
+SHA256                  66          76s
+
+
+Possible dynarmic_new arm32 efficiency and time cost:
+ codecs                 scoreEffi         timeCost
+default                 78.20%            1.09x
+LZMA:x5:mt1             80.24%            1.07x
+Delta:4                 48.61%            4.26x
+BCJ                     36.19%            5.66x
+CRC32:1                 78.08%            2.91x
+CRC32:4                 91.99%            2.36x
+CRC32:8                 81.45%            2.77x
+CRC64                   72.27%            2.66x
+SHA256                  64.00%            3.46x

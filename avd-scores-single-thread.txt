@@ -1,0 +1,125 @@
+SINGLE THREAD 7zr on AVD(hyper-v) TEST 
+p7zip 16.02
+Some scores like 999/1999 means: CompressingRating/DecompressingRating
+default: command "7zr b -mmt1"
+other codecs: command "7zr b -mmt1 -mm=codec"
+compare with qemu5.2 (unicorn2 is based on qemu5)
+
+
+
++++++++++++++++++++++++    arm64   +++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------
+SINGLE THREAD Scores Efficiency Compare ARM64 p7zip 16.02 (high is better)
+ codecs     Native      ndk_transl  Houdini12   Qemu10      Qemu10-a72  Qemu5
+default     100.00%     52.33%      72.24%      27.42%      36.15%      27.52%
+LZMA:x5:mt1 100.00%     53.04%      73.31%      27.79%      36.15%      42.57%
+Delta:4     100.00%     26.66%      51.02%      7.92%       12.83%      14.47%
+BCJ         100.00%     34.82%      89.82%      8.56%       17.80%      20.26%
+CRC32:1     100.00%     44.29%      65.98%      53.88%      53.42%      63.01%
+CRC32:4     100.00%     54.45%      74.39%      50.09%      53.48%      64.69%
+CRC32:8     100.00%     47.98%      72.55%      41.24%      44.39%      48.62%
+CRC64       100.00%     53.85%      77.07%      50.43%      52.33%      62.89%
+SHA256      100.00%     52.59%      81.03%      24.57%      35.78%      37.50%
+
+SINGLE THREAD Time Cost Compare ARM64 p7zip 16.02 (low is better)
+ codecs     Native      ndk_transl  Houdini12   Qemu10      Qemu10-a72  Qemu5
+default     1.00x       1.28x       1.34x       2.90x       2.14x       2.40x
+LZMA:x5:mt1 1.00x       1.26x       1.32x       2.88x       2.12x       1.87x
+Delta:4     1.00x       1.42x       1.94x       7.94x       4.71x       4.16x
+BCJ         1.00x       1.08x       1.03x       7.24x       3.51x       3.05x
+CRC32:1     1.00x       0.80x       1.48x       1.22x       1.20x       1.04x
+CRC32:4     1.00x       0.72x       1.42x       1.41x       1.33x       1.10x
+CRC32:8     1.00x       0.72x       1.38x       1.61x       1.49x       1.38x
+CRC64       1.00x       0.64x       1.28x       1.31x       1.28x       1.06x
+SHA256      1.00x       0.68x       1.20x       2.59x       1.83x       1.74x
+
+
+
+-------------------------------------------------------------------------
+x86_64 Native (vs qemu5): 
+ codecs      score                   time        score vs    time vs
+default     Avr=2893/3707;Tot=3300; 43.4s       3.63x       41.73%
+LZMA:x5:mt1 Avr=2792/3720;Tot=3256; 43.9s       2.35x       53.41%
+Delta:4     Avr=6423/7469;Tot=6946; 18.5s       6.91x       24.06%
+BCJ         Avr=6010/5936;Tot=5973; 22.0s       4.94x       32.74%
+CRC32:1     Avg=438;                70.0s       1.59x       96.29%
+CRC32:4     Avg=1062;               87.6s       1.55x       91.16%
+CRC32:8     Avg=1559;               104.3s      2.06x       72.23%
+CRC64       Avg=1051;               103.4s      1.59x       94.17%
+SHA256      Avg=232;                47.9s       2.67x       57.43%
+
+
+-------------------------------------------------------------------------
+arm64 ndk_translation avd16 (vs qemu5):
+ codecs      score                   time        score vs    time vs
+default     Avr=1620/1833;Tot=1727; 55.5s       1.90x       53.37%
+LZMA:x5:mt1 Avr=1634/1821;Tot=1727; 55.5s       1.25x       67.82%
+Delta:4     Avr=1820/1883;Tot=1852; 26.3s       1.84x       34.20%
+BCJ         Avr=2082/2078;Tot=2080; 23.7s       1.72x       35.27%
+CRC32:1     Avg=194;                56.2s       0.70x       77.30%
+CRC32:4     Avg=557;                63.1s       0.81x       65.66%
+CRC32:8     Avg=748;                74.9s       0.99x       51.87%
+CRC64       Avg=566;                66.0s       0.86x       60.11%
+SHA256      Avg=122;                32.7s       1.40x       39.21%
+
+
+
+-------------------------------------------------------------------------
+arm64 houdini64 12.0.0a_z.38818.m (vs qemu5): 
+ codecs      score                   time        score vs    time vs
+default     Avr=2164/2604;Tot=2384; 58.0s       2.63x       55.77%
+LZMA:x5:mt1 Avr=2175/2599;Tot=2387; 57.9s       1.72x       70.44%
+Delta:4     Avr=3331/3758;Tot=3544; 35.8s       3.53x       46.55%
+BCJ         Avr=5232/5498;Tot=5365; 22.6s       4.43x       33.63%
+CRC32:1     Avg=289;                103.8s      1.05x       142.78%
+CRC32:4     Avg=790;                124.8s      1.15x       129.86%
+CRC32:8     Avg=1131;               143.6s      1.49x       99.45%
+CRC64       Avg=810;                132.7s      1.23x       120.86%
+SHA256      Avg=188;                57.6s       2.16x       69.06%
+
+
+
+-------------------------------------------------------------------------
+arm64 qemu 10.0.0 default (vs qemu5): 
+ codecs      score                   time        score vs    time vs
+default     Avr=748/1062;Tot=905;   125.9s      1.00x       121.06%
+LZMA:x5:mt1 Avr=742/1067;Tot=905;   126.5s      0.65x       153.89%
+Delta:4     Avr=539/562;Tot=550;    146.9s      0.55x       191.03%
+BCJ         Avr=514/507;Tot=511;    159.3s      0.42x       237.05%
+CRC32:1     Avg=236;                85.3s       0.86x       117.33%
+CRC32:4     Avg=532;                123.5s      0.77x       128.51%
+CRC32:8     Avg=643;                167.8s      0.85x       116.20%
+CRC64       Avg=530;                135.3s      0.80x       123.22%
+SHA256      Avg=57;                 124.3s      0.66x       149.04%
+
+
+-------------------------------------------------------------------------
+arm64 qemu 10.0.0 -cpu cortex-a72 (vs qemu5): 
+ codecs      score                   time
+default     Avr=1076/1311;Tot=1193; 92.9s       1.31x       89.33%
+LZMA:x5:mt1 Avr=1071/1283;Tot=1177; 93.0s       0.85x       113.14%
+Delta:4     Avr=863/919;Tot=891;    87.2s       0.89x       113.39%
+BCJ         Avr=1060/1065;Tot=1063; 77.3s       0.88x       115.03%
+CRC32:1     Avg=234;                84.1s       0.84x       115.68%
+CRC32:4     Avg=568;                116.3s      0.82x       121.02%
+CRC32:8     Avg=692;                155.0s      0.91x       107.34%
+CRC64       Avg=550;                132.8s      0.83x       120.95%
+SHA256      Avg=83;                 87.6s       0.95x       105.04%
+
+
+-------------------------------------------------------------------------
+arm64 qemu 5.2:
+ codecs      score                   time
+default     Avr=830/1487;Tot=908;   104.0s
+LZMA:x5:mt1 Avr=1235/1538;Tot=1386; 82.2s
+Delta:4     Avr=995/1014;Tot=1005;  76.9s
+BCJ         Avr=1208/1212;Tot=1210; 67.2s
+CRC32:1     Avg=276;                72.7s
+CRC32:4     Avg=687;                96.1s
+CRC32:8     Avg=758;                144.4s
+CRC64       Avg=661;                109.8s
+SHA256      Avg=87;                 83.4s
+
+
+
++++++++++++++++++++++++    arm32(untest)   ++++++++++++++++++++++++++++

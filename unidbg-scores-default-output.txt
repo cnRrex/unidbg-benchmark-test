@@ -1,0 +1,158 @@
+---------------------------------------------------------------------
++++ dynarmic arm32 new, single thread +++
+
+7-Zip (a) [32] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=utf8,Utf16=on,HugeFiles=off,32 bits,1 CPU LE)
+
+LE
+CPU Freq:  3368  3368  4000  3764  3368  3605  3605  3670  3849
+
+RAM size:    2048 MB,  # CPU hardware threads:   1
+RAM usage:    435 MB,  # Benchmark threads:      1
+
+                       Compressing  |                  Decompressing
+Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
+         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
+
+22:        929   100    905    905  |      11962   100   1021   1021
+23:        886   100    904    904  |      11697   100   1013   1013
+24:        847   100    911    911  |      11665   100   1024   1024
+25:        800   100    914    914  |      11470   100   1021   1021
+----------------------------------  | ------------------------------
+Avr:             100    908    908  |              100   1020   1020
+Tot:             100    964    964
+Function return: 0, off=143556ms, =143s
+
+
+
+---------------------------------------------------------------------
++++ dynarmic old arm32, single thread +++
+
+7-Zip (a) [32] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=utf8,Utf16=on,HugeFiles=off,32 bits,1 CPU LE)
+
+LE
+CPU Freq:  3368  3555  3555  3368  3657  3555  3737  3750  3744
+
+RAM size:    2048 MB,  # CPU hardware threads:   1
+RAM usage:    435 MB,  # Benchmark threads:      1
+
+                       Compressing  |                  Decompressing
+Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
+         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
+
+22:        417   100    406    406  |       5159   100    441    441
+23:        389   100    397    397  |       4798   100    415    415
+24:        402   100    433    433  |       5050   100    443    443
+25:        405   100    463    463  |       4786   100    426    426
+----------------------------------  | ------------------------------
+Avr:             100    425    425  |              100    431    431
+Tot:             100    428    428
+Function return: 0, off=302261ms, =302s
+
+
+
+-----------------------------------------------------------------------
++++ unicorn2 arm32, single thread +++
+
+7-Zip (a) [32] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=utf8,Utf16=on,HugeFiles=off,32 bits,1 CPU LE)
+
+LE
+CPU Freq:  1641  1684  1488  1600  1391  1790  1855  1841  1731
+
+RAM size:    2048 MB,  # CPU hardware threads:   1
+RAM usage:    435 MB,  # Benchmark threads:      1
+
+                       Compressing  |                  Decompressing
+Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
+         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
+
+22:        262   100    255    255  |       4796   100    410    409
+23:        254   100    260    260  |       4656   100    403    403
+24:        259   100    279    279  |       4653   100    409    409
+25:        251   100    287    287  |       4566   100    406    406
+----------------------------------  | ------------------------------
+Avr:             100    270    270  |              100    407    407
+Tot:             100    339    339
+Function return: 0, off=307063ms, =307s
+
+
+
+---------------------------------------------------------------------
++++ dynarmic arm64 new, single thread +++
+
+7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=utf8,Utf16=on,HugeFiles=on,64 bits,1 CPU LE)
+
+LE
+CPU Freq:  2909  3764  3764  4000  3282  3555  3792  3723  3908
+
+RAM size:    4096 MB,  # CPU hardware threads:   1
+RAM usage:    435 MB,  # Benchmark threads:      1
+
+                       Compressing  |                  Decompressing
+Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
+         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
+
+22:       1005   100    978    978  |      12389   100   1058   1058
+23:        977   100    996    996  |      12087   100   1046   1046
+24:        929   100    999    999  |      12012   100   1055   1055
+25:        891   100   1018   1018  |      11129   100    991    991
+----------------------------------  | ------------------------------
+Avr:             100    998    998  |              100   1037   1037
+Tot:             100   1018   1018
+Function return: 0, off=135138ms, =135s
+
+
+
+-----------------------------------------------------------------------
++++ dynarmic arm64 old, single thread +++
+
+7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=utf8,Utf16=on,HugeFiles=on,64 bits,1 CPU LE)
+
+LE
+CPU Freq:  2782  3764  3555  4000  4000  3938  4000  3984  4000
+
+RAM size:    4096 MB,  # CPU hardware threads:   1
+RAM usage:    435 MB,  # Benchmark threads:      1
+
+                       Compressing  |                  Decompressing
+Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
+         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
+
+22:        928   100    903    903  |      11390   100    972    973
+23:        787   100    803    802  |      10409   100    901    901
+24:        832   100    895    895  |      12118   100   1064   1064
+25:        845   100    966    966  |      11852   100   1055   1055
+----------------------------------  | ------------------------------
+Avr:             100    891    891  |              100    998    998
+Tot:             100    945    945
+Function return: 0, off=147274ms, =147s
+
+
+-----------------------------------------------------------------------
++++ unicorn2 arm64, single thread +++
+
+7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=utf8,Utf16=on,HugeFiles=on,64 bits,1 CPU LE)
+
+LE
+CPU Freq:  2285  2461  2285  2560  2415  2585  2666  2632  2656
+
+RAM size:    4096 MB,  # CPU hardware threads:   1
+RAM usage:    435 MB,  # Benchmark threads:      1
+
+                       Compressing  |                  Decompressing
+Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
+         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
+
+22:        287   100    279    279  |       5081   100    434    434
+23:        288   100    294    294  |       4895   100    424    424
+24:        290   100    312    312  |       4882   100    429    429
+25:        278   100    318    318  |       4282   100    381    381
+----------------------------------  | ------------------------------
+Avr:             100    301    301  |              100    417    417
+Tot:             100    359    359
+Function return: 0, off=329481ms, =329s

@@ -1211,6 +1211,7 @@ public class ARM64SyscallHandler extends AndroidSyscallHandler {
 
     private static final int CLOCK_REALTIME = 0;
     private static final int CLOCK_MONOTONIC = 1;
+    private static final int CLOCK_PROCESS_CPUTIME_ID = 2;
     private static final int CLOCK_THREAD_CPUTIME_ID = 3;
     private static final int CLOCK_MONOTONIC_RAW = 4;
     private static final int CLOCK_MONOTONIC_COARSE = 6;
@@ -1235,6 +1236,7 @@ public class ARM64SyscallHandler extends AndroidSyscallHandler {
             case CLOCK_MONOTONIC_RAW:
             case CLOCK_MONOTONIC_COARSE:
             case CLOCK_BOOTTIME:
+            case CLOCK_PROCESS_CPUTIME_ID:
                 tp.setLong(0, tv_sec);
                 tp.setLong(8, tv_nsec);
                 return 0;
